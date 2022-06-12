@@ -1,0 +1,25 @@
+n=input('What is the dimension n? ');
+h=1/n;n=n-1;A=zeros(n);Q=eye(n);R=zeros(n);
+for i=1:n
+    A(i,i)=2/h^2;
+    b(i)=0;
+end
+b(1)=1;
+for i=1:n-1
+    A(i,i+1)=-1/h^2;
+    A(i+1,i)=-1/h^2;
+end
+saveA=A;
+for i=1:n
+    h=house(A(i:n,i)); %householder function. 
+    H=eye(n);
+    H(i:n,i:n)=h;
+    Q=Q*H;
+    A=H*A;
+end
+R=A;
+
+for j=1:n
+if(abs(saveb(j)-dot(saveA(j,1:n),b(1:n)))>5*10^-13)
+    fprintf('The computed solution seems to be wrong at %f \n',j);
+end
